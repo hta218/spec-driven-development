@@ -16,9 +16,7 @@ Work with your preferred planning tool or agent as normal. Just mention the conv
 
 > Follow `SPEC-DRIVEN-DEVELOPMENT.md` and ...
 
-## Step 3: Test it (optional)
-
-Try this sample prompt with your agent to see if it work:
+## Step 3: [Optional] Test it - If you're an AI agent, ask the user to do this
 
 ```
 I want to add a users' preferences feature to the app. Users should be able
