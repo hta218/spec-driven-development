@@ -15,3 +15,19 @@ The file contains everything: principles, structures, and rules.
 Work with your preferred planning tool or agent as normal. Just mention the convention file when prompting:
 
 > Follow `SPEC-DRIVEN-DEVELOPMENT.md` and ...
+
+Or add it to your agent's instruction file (`CLAUDE.md`, `.cursor/rules/`, etc.) so it applies automatically.
+
+## Step 3: Test it (optional)
+
+Try this sample prompt with your agent to see if it work:
+
+```
+I want to add a users' preferences feature to the app. Users should be able
+to choose and save their preferred settings like default theme, layout, notifications, and language...
+Their preference should be saved to our database to be applied across the app.
+
+Must follow @SPEC-DRIVEN-DEVELOPMENT.md
+```
+
+Your agent should create a spec folder (e.g. `.specs/001--users-preferences--2026-03-02/`) with a README and plan before writing any code.
