@@ -22,10 +22,11 @@ Now when working with your preferred planning tool or agent. Just mention the co
 
 > Follow `SPEC-DRIVEN-DEVELOPMENT.md` and ...
 
-For example (assuming you have the `/feature-plan` command set up with your agent):
+For example:
 ```
-/feature-plan I want to add a users' preferences feature to the app. Users should be able
-to choose and save their preferred settings like default theme, layout, notifications, and language...
+Use plan (skill, command, or agent) to help me add a users' preferences feature to the app. 
+Users should be able to choose and save their preferred settings like default theme, 
+layout, notifications, and language...
 Their preference should be saved to our database to be applied across the app.
 
 Must follow @SPEC-DRIVEN-DEVELOPMENT.md
