@@ -8,7 +8,7 @@ AI coding agents are productive but opaque. A feature built by one agent (or dev
 
 Code is too much to read. Specs become the source of truth.
 
-SDD inverts the typical workflow: you write a markdown spec first, the agent implements from it, and the spec stays updated as the feature evolves. Any dev or agent can understand any feature by reading one file.
+SDD inverts the typical workflow: you write a markdown spec first, the agent implements from it, and the spec stays updated as the feature evolves. Any dev or agent can understand any feature by reading one spec folder.
 
 ## Who this is for
 
@@ -29,8 +29,8 @@ That's it. There's nothing to install.
 ## Philosophy
 
 - **Specs describe intent and boundaries, not implementation details.** How something works lives in code. Why it exists and what it must not break lives in the spec.
-- **Agents update the changelog; humans update the intent.** Agents should append to the changelog section automatically. Humans own the goals and constraints.
-- **CI enforcement prevents spec drift.** Specs without enforcement are wishes. Wire up checks so specs can't fall out of sync silently.
+- **The original prompt is sacred.** The exact prompt or requirement that started a feature must be preserved verbatim. It's the source of truth for why a feature exists.
+- **Each dev uses their own agent and workflow.** SDD doesn't dictate which AI agent or framework you use. It only requires that specs follow the same convention.
 - **Start minimal, iterate the format based on real usage.** Don't over-engineer the spec structure up front. Let your team's actual pain points shape the conventions.
 
 ## Contributing

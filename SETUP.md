@@ -2,7 +2,7 @@
 
 A practical adoption guide for teams with existing or new projects.
 
-**Audience**: Senior engineers onboarding their team to SDD.
+**Audience**: Engineers onboarding their team to SDD.
 **Time to functional setup**: ~2 hours on day 1.
 
 ---
@@ -11,161 +11,117 @@ A practical adoption guide for teams with existing or new projects.
 
 - Your team uses AI coding agents (Claude Code, Cursor, Copilot, Windsurf, etc.)
 - Project is tracked in git
-- Team is willing to enforce conventions via CI
+- Team wants a shared convention for features built by agents
 
 ---
 
-## Step 1: Directory Structure
+## Step 1: Create the .specs/ Folder
 
-Adopt feature-based co-location. Each feature module gets a `SPEC.md` alongside its code:
+Create a `.specs/` folder at your project root:
 
 ```
-src/
-  features/
-    auth/
-      SPEC.md
-      auth.service.ts
-      auth.controller.ts
-      __tests__/
-    billing/
-      SPEC.md
-      billing.service.ts
-      ...
-SYSTEM.md
-CONVENTIONS.md
+your-project/
+  .specs/
+  src/
+  package.json
+  ...
 ```
 
-The spec lives **with the code**, not in a separate `/specs/` or `/docs/` directory. This keeps `git log` showing spec and code changes together, and PRs that touch code without touching the spec become visually obvious in review.
-
-Add a top-level `SYSTEM.md` for architecture overview and feature index (see Step 5).
+This is where all feature specs live, regardless of your source code structure. It works with any project layout: monorepo, multi-package, flat, whatever. The `.specs/` folder is always at the root, always separate from your code.
 
 ---
 
-## Step 2: Create Your First Specs
+## Step 2: Create Your First Feature Spec
 
-Don't try to spec the entire codebase retroactively. That's a large effort nobody will finish.
+Each feature gets its own folder inside `.specs/`, using this naming pattern:
 
-Write 2-3 specs for your most active or important features as examples. The owning dev writes them, not AI generating from existing code. Specs capture **intent**, not implementation.
+```
+.specs/{index}--{kebab-case-title}--{YYYY-MM-DD}/
+```
 
-Use the template from [CONVENTIONS.md](./CONVENTIONS.md).
+Double dashes are the separators. Examples:
 
-**Going forward:**
-- New features must have a spec before implementation starts
-- Modified features must have their spec updated before modification starts
+```
+.specs/001--user-authentication--2026-01-15/
+.specs/002--billing-webhooks--2026-01-22/
+.specs/003--export-to-csv--2026-02-03/
+```
+
+Each feature folder contains up to three files:
+
+| File | Required | Purpose |
+|------|----------|---------|
+| `README.md` | Yes | Status, owner, dates, original prompt, brief summary |
+| `plan.md` | Yes | Agent-generated implementation plan, related files/folders, under 500 lines |
+| `work-logs.md` | Optional | Timeline of work sessions |
+
+**The original prompt is the most important part.** Paste it verbatim in `README.md`. Don't paraphrase, don't clean it up. Future agents and teammates need to see what was actually asked for.
+
+Use the templates in [CONVENTIONS.md](./CONVENTIONS.md) for each file.
+
+Don't try to spec the entire codebase on day one. Write specs for your 2-3 most active features as examples. Coverage grows from there.
 
 ---
 
 ## Step 3: Configure Your AI Agents
 
-Add agent rules so all agents on your team follow the same SDD workflow. The rules are agent-agnostic — same content, different delivery file.
+Add rules so agents know to check `.specs/` before working on any feature. The rules are agent-agnostic; same content, different delivery file.
 
 **For Claude Code (`CLAUDE.md` or `AGENTS.md`):**
 
 ```markdown
-## Spec-Driven Development Rules
+## Spec-Driven Development
 
-Before modifying ANY file in src/features/{X}/:
-1. READ src/features/{X}/SPEC.md
-2. Extract Boundaries — these are the ONLY files you may touch
-3. Extract Invariants — these are constraints you MUST NOT violate
-4. Plan changes — validate plan doesn't violate Invariants
+Before working on any feature:
+1. Check .specs/ for existing feature specs
+2. READ the feature's README.md to understand the original intent
+3. READ the feature's plan.md to understand scope and related files
+4. Only touch files listed in the plan
 
-After modifying:
-5. UPDATE the Changelog in SPEC.md with date, author, summary
-6. If changes require touching files OUTSIDE Boundaries:
-   → STOP. Flag to human. Propose spec update.
-7. If Invariants may have changed:
-   → STOP. Flag for human review. Do NOT auto-update Invariants.
+After working:
+5. Update work-logs.md with what was done
+6. Update plan.md if the approach changed
+7. Never modify the "Original Prompt" section
 ```
 
 **For Cursor (`.cursor/rules/*.mdc`):**
 
 ```markdown
 ---
-description: Spec-Driven Development workflow for feature modifications
-globs: src/features/**/*
+description: Spec-Driven Development workflow
+globs: "**/*"
 ---
 
-Before modifying ANY file in src/features/{X}/:
-1. READ src/features/{X}/SPEC.md
-2. Extract Boundaries — these are the ONLY files you may touch
-3. Extract Invariants — these are constraints you MUST NOT violate
-4. Plan changes — validate plan doesn't violate Invariants
+Before working on any feature:
+1. Check .specs/ for existing feature specs
+2. READ the feature's README.md to understand the original intent
+3. READ the feature's plan.md to understand scope and related files
+4. Only touch files listed in the plan
 
-After modifying:
-5. UPDATE the Changelog in SPEC.md with date, author, summary
-6. If changes require touching files OUTSIDE Boundaries:
-   → STOP. Flag to human. Propose spec update.
-7. If Invariants may have changed:
-   → STOP. Flag for human review. Do NOT auto-update Invariants.
+After working:
+5. Update work-logs.md with what was done
+6. Update plan.md if the approach changed
+7. Never modify the "Original Prompt" section
 ```
 
-**For other agents (Copilot, Windsurf, etc.):**
-
-Place the same rules in whatever instruction file your agent reads. The content is identical — only the delivery mechanism changes.
+For other agents: same rules, placed in whatever instruction file they read.
 
 ---
 
-## Step 4: CI Enforcement
+## Step 4: Team Workflow
 
-### Tier 1 (day 1): Spec presence check
+The core loop is: spec first, code second, update spec after.
 
-Any PR touching `src/features/{X}/**` must also touch `src/features/{X}/SPEC.md`.
+**Starting a new feature:**
+Create the spec folder before writing any code. The spec doesn't have to be perfect, but the folder and `README.md` should exist, and the original prompt should be pasted in before any agent touches the implementation.
 
-```bash
-#!/bin/bash
-# ci/check-spec.sh
-# Fails if feature code changed but SPEC.md wasn't updated
+**Picking up someone else's feature:**
+Read their spec folder first. `README.md` tells you what was wanted and why. `plan.md` tells you what files are in scope. `work-logs.md` (if present) tells you what's been done. Then continue.
 
-CHANGED_FEATURES=$(git diff --name-only origin/main...HEAD \
-  | grep '^src/features/' \
-  | cut -d'/' -f1-3 \
-  | sort -u)
+**Modifying an existing feature:**
+Read the spec, make your changes, update `plan.md` if scope changed, add an entry to `work-logs.md`. Never edit the "Original Prompt" section in `README.md`.
 
-EXIT_CODE=0
-for feature_dir in $CHANGED_FEATURES; do
-  if ! git diff --name-only origin/main...HEAD | grep -q "^${feature_dir}/SPEC.md"; then
-    echo "ERROR: ${feature_dir}/ was modified but ${feature_dir}/SPEC.md was not updated"
-    EXIT_CODE=1
-  fi
-done
-
-exit $EXIT_CODE
-```
-
-Wire this into your CI pipeline (GitHub Actions, GitLab CI, etc.) as a required check.
-
-### Tier 2 (week 2): Spec linter
-
-Add a linter that validates required sections exist in each `SPEC.md` and that the Boundaries file list matches actual files in the directory. A simple grep-based script works fine at this stage.
-
-### Tier 3 (later): AI review bot
-
-An AI-assisted bot reads the diff plus spec and flags inconsistencies. Optional, but high signal-to-noise once your specs are mature.
-
----
-
-## Step 5: Write SYSTEM.md
-
-Create a top-level `SYSTEM.md` with:
-
-- High-level architecture overview (data flow, key infrastructure, deployment topology)
-- Feature index: one-line description per feature module
-- Cross-cutting concerns: shared utilities, auth middleware, error handling, observability
-
-Example feature index section:
-
-```markdown
-## Feature Index
-
-| Feature | Description |
-|---------|-------------|
-| auth | JWT-based authentication and session management |
-| billing | Subscription lifecycle and payment processing via Stripe |
-| notifications | Email and push delivery with retry logic |
-```
-
-Maintain this manually until you hit roughly 15 features, then auto-generate the index by parsing `SPEC.md` files.
+This workflow doesn't require buy-in from everyone on day one. One engineer adopting it creates specs that everyone else benefits from when they touch those features.
 
 ---
 
@@ -175,10 +131,10 @@ The goal is working coverage fast, not perfect coverage eventually.
 
 | Milestone | Action |
 |-----------|--------|
-| Day 1 | Write `CONVENTIONS.md` (or adopt this repo's), add CI check, write 2-3 example specs |
-| Week 1 | All actively touched features get specs as they're modified |
-| Week 2 | Add spec linter to CI |
-| Week 4 | Retrospective: which sections are useful? Adjust the template. |
-| Ongoing | New features always start with a spec. Coverage grows organically. |
+| Day 1 | Create `.specs/`, adopt CONVENTIONS.md, write first 1-2 feature specs |
+| Week 1 | All new features start with a spec folder |
+| Week 2 | Active features being modified get retroactive specs |
+| Week 4 | Retrospective: which parts of the spec are useful? Adjust. |
+| Ongoing | Coverage grows organically through normal development |
 
-Don't block existing work waiting for full coverage. The CI check gates new changes, not past ones. Coverage reaches ~80% within a quarter through normal development churn.
+Don't block existing work waiting for full coverage. Coverage reaches around 80% within a quarter through normal development churn. The spec system earns its value every time someone picks up a feature they didn't write.
