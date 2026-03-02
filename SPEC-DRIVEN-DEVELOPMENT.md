@@ -120,3 +120,10 @@ Append-only format:
 - Continued from previous session
 - Updated plan to reflect new approach
 ```
+
+---
+
+## Rules
+
+1. **New feature?** Create a spec folder following the convention above before writing any code.
+2. **Existing feature?** Read the spec first. Update it if your changes affect the plan, status, or scope.
