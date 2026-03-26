@@ -1,5 +1,5 @@
 ---
-name: shopify-hydrogen-skill
+name: shopify-hydrogen-skills
 description: "Skills for building, upgrading, and maintaining Shopify Hydrogen storefronts — includes core Hydrogen patterns, Weaverse integration, feature cookbooks, and upgrade guides."
 ---
 
