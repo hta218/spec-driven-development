@@ -14,9 +14,27 @@ Or manually reference any skill file directly in your agent's context.
 
 | Skill | SKILL.md | What the agent learns |
 |-------|----------|-----------------------|
+| [`skills/shopify-hydrogen/`](#shopify-hydrogen) | Core Hydrogen APIs — `createHydrogenContext`, cart handler, caching, pagination, SEO, analytics, CSP |
 | [`skills/weaverse-hydrogen/`](#weaverse-hydrogen) | Weaverse components, schemas, loaders, theming, Hydrogen fundamentals, deployment |
 | [`skills/hydrogen-cookbooks/`](#hydrogen-cookbooks) | Step-by-step guides for bundles, combined listings, 3D models, customer accounts, performance, and more |
 | [`skills/hydrogen-upgrades/`](#hydrogen-upgrades) | Breaking changes and migration steps for every Hydrogen version from 2024.4.7 to 2026.1.0 |
+
+---
+
+## shopify-hydrogen
+
+Core APIs from `@shopify/hydrogen` — everything needed to set up and work with a Hydrogen project: server context, cart handler, caching strategies, pagination, SEO meta, sitemaps, analytics, and CSP.
+
+```
+skills/shopify-hydrogen/
+├── SKILL.md
+└── references/
+    ├── 01-setup.md
+    ├── 02-caching.md
+    └── 03-cart.md
+```
+
+> Sourced from [github.com/Shopify/hydrogen](https://github.com/Shopify/hydrogen/tree/main/packages/hydrogen/src)
 
 ---
 

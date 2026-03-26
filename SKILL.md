@@ -11,13 +11,15 @@ A collection of agent skills for working with Shopify Hydrogen storefronts — c
 
 | Skill | Description | When to load |
 |-------|-------------|--------------|
-| [weaverse-hydrogen](./skills/weaverse-hydrogen/SKILL.md) | Weaverse CMS integration — components, schemas, loaders, theming, Hydrogen fundamentals | Any Hydrogen + Weaverse project work |
+| [shopify-hydrogen](./skills/shopify-hydrogen/SKILL.md) | Core Hydrogen APIs — createHydrogenContext, cart, caching, pagination, SEO, analytics, CSP | Any Hydrogen project |
+| [weaverse-hydrogen](./skills/weaverse-hydrogen/SKILL.md) | Weaverse CMS integration — components, schemas, loaders, theming, Hydrogen fundamentals | Projects using Weaverse |
 | [hydrogen-cookbooks](./skills/hydrogen-cookbooks/SKILL.md) | Step-by-step guides for building common Hydrogen features | Building specific features |
 | [hydrogen-upgrades](./skills/hydrogen-upgrades/SKILL.md) | Hydrogen version migration guides and upgrade process | Upgrading Hydrogen |
 
 ## When to Load Which Skill
 
-- **Working on a Hydrogen + Weaverse project** → load `weaverse-hydrogen`
+- **Any Hydrogen project** → load `shopify-hydrogen`
+- **Project uses Weaverse** → also load `weaverse-hydrogen`
 - **Building a specific feature** (bundles, combined listings, 3D models...) → load `hydrogen-cookbooks`
 - **Upgrading Hydrogen version** → load `hydrogen-upgrades`
 
