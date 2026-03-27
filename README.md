@@ -34,8 +34,6 @@ skills/shopify-hydrogen/
     └── 03-cart.md
 ```
 
-> Sourced from [github.com/Shopify/hydrogen](https://github.com/Shopify/hydrogen/tree/main/packages/hydrogen/src)
-
 ---
 
 ## hydrogen-cookbooks
