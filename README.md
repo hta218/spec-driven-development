@@ -12,12 +12,12 @@ Or manually reference any skill file directly in your agent's context.
 
 ## Skills Overview
 
-| Skill | SKILL.md | What the agent learns |
-|-------|----------|-----------------------|
+| Skill | What the agent learns |
+|-------|-----------------------|
 | [`skills/shopify-hydrogen/`](#shopify-hydrogen) | Core Hydrogen APIs — `createHydrogenContext`, cart handler, caching, pagination, SEO, analytics, CSP |
-| [`skills/weaverse-hydrogen/`](#weaverse-hydrogen) | Weaverse components, schemas, loaders, theming, Hydrogen fundamentals, deployment |
 | [`skills/hydrogen-cookbooks/`](#hydrogen-cookbooks) | Step-by-step guides for bundles, combined listings, 3D models, customer accounts, performance, and more |
 | [`skills/hydrogen-upgrades/`](#hydrogen-upgrades) | Breaking changes and migration steps for every Hydrogen version from 2024.4.7 to 2026.1.0 |
+| [`skills/weaverse-hydrogen/`](#weaverse-hydrogen) | Weaverse components, schemas, loaders, theming, Hydrogen fundamentals, deployment |
 
 ---
 
