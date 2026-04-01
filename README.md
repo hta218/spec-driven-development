@@ -4,11 +4,13 @@ A collection of agent skills for building, maintaining, and upgrading Shopify Hy
 
 ## Installation
 
-```bash
-claude skill install Weaverse/shopify-hydrogen-skills
+Copy and paste this prompt into any AI agent (Claude Code, Cursor, GitHub Copilot, Windsurf, OpenCode, etc.):
+
+```
+Read INSTALL.md from https://github.com/Weaverse/shopify-hydrogen-skills and follow the instructions to set up the Shopify Hydrogen skills.
 ```
 
-Or manually reference any skill file directly in your agent's context.
+The agent will ask where to install (globally or for the current project) and which agent(s) to configure, then handle everything automatically.
 
 ## Skills Overview
 
@@ -104,24 +106,6 @@ skills/weaverse-hydrogen/
 ```
 
 
-
----
-
-## Manual Setup
-
-If your agent doesn't support the `claude skill install` command, add the relevant `SKILL.md` path to your agent's context manually:
-
-**Cursor** — the `.cursorrules` file at the root is automatically picked up.
-
-**Claude Code** — add to your project's `CLAUDE.md`:
-```
-Read skills/weaverse-hydrogen/SKILL.md before working on Weaverse components.
-```
-
-**GitHub Copilot** — add to `.github/copilot-instructions.md`:
-```
-Refer to skills/weaverse-hydrogen/SKILL.md for Weaverse Hydrogen patterns.
-```
 
 ---
 
