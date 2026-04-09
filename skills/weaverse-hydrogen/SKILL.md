@@ -1,3 +1,8 @@
+---
+name: weaverse-hydrogen
+description: "Build Shopify Hydrogen storefronts with Weaverse — components, schemas, loaders, theming, data fetching, React Router v7, deployment, and advanced features."
+---
+
 # Weaverse Hydrogen — Agent Skill
 
 > Build Shopify Hydrogen storefronts with Weaverse visual page builder.
