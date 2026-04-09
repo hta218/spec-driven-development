@@ -7,6 +7,18 @@ description: "Step-by-step guides for upgrading Shopify Hydrogen between version
 
 Version-by-version migration guides for upgrading Shopify Hydrogen. Each guide covers breaking changes, required code updates, and step-by-step diffs.
 
+## Live Documentation
+
+For the latest upgrade information from Shopify:
+
+```bash
+node scripts/search_shopify_docs.mjs "hydrogen upgrade <version>"
+node scripts/search_shopify_docs.mjs "hydrogen breaking changes"
+node scripts/search_shopify_docs.mjs "hydrogen migration"
+```
+
+The curated guides below cover specific version jumps with detailed diffs and Weaverse-specific considerations.
+
 ## Available Upgrade Guides
 
 | Guide | Key Changes |

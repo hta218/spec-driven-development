@@ -4,53 +4,76 @@ This file provides guidance to AI coding agents when working with code in this r
 
 ## What This Repo Is
 
-A collection of agent skills for working with Shopify Hydrogen storefronts. Skills are markdown knowledge bases that agents (Claude, Copilot, Cursor, etc.) load to gain context before working on a Hydrogen project.
+A collection of agent skills for building, maintaining, and upgrading Shopify Hydrogen storefronts with Weaverse. Skills are markdown knowledge bases that agents (Claude Code, Cursor, Copilot, OpenCode, OpenClaw, Gemini CLI, etc.) load to gain context before working on a Hydrogen project.
+
+## Installation
+
+```bash
+npx skills add Weaverse/shopify-hydrogen-skills
+```
+
+See [INSTALL.md](INSTALL.md) for manual per-agent setup.
 
 ## Repository Structure
 
 ```
-SKILL.md                          # Root entry point — index of all skills
-.cursorrules                      # Mirror of root SKILL.md (for Cursor)
+package.json                       # Node ESM config for running scripts
+scripts/
+  search_shopify_docs.mjs          # Live Shopify Hydrogen API docs search
+  search_weaverse_docs.mjs         # Live Weaverse docs search
+  get_weaverse_page.mjs            # Fetch a specific Weaverse doc page
+INSTALL.md                         # Detailed per-agent installation guide
+AGENTS.md                          # This file — repo guidance for agents
+.cursorrules                       # Cursor rules (synced with skill content)
 skills/
-  weaverse-hydrogen/              # Weaverse CMS + Hydrogen fundamentals
+  shopify-hydrogen/                # Core Hydrogen APIs (live + offline)
     SKILL.md
-    references/                   # 13 deep-dive reference files
-    examples/                     # 4 production-ready code examples
-  hydrogen-cookbooks/             # Feature implementation guides
+    references/                    # 3 reference files (cached API docs)
+  weaverse-hydrogen/               # Weaverse CMS + Hydrogen fundamentals
     SKILL.md
-    references/                   # One file per feature/cookbook
-  hydrogen-upgrades/              # Version migration guides
+    references/                    # 13 deep-dive reference files
+    examples/                      # 4 production-ready code examples
+  hydrogen-cookbooks/              # Feature implementation guides
     SKILL.md
-    references/                   # One file per version jump
+    references/                    # One file per feature/cookbook
+  hydrogen-upgrades/               # Version migration guides
+    SKILL.md
+    references/                    # One file per version jump
 ```
 
-## Content Sources — Critical Rule
+## Live Docs Strategy
 
-**Every skill file must come from an authoritative source. Never write content from memory or training data.**
+Instead of baking static API docs into skill files (which go stale), this repo ships scripts that query official sources at runtime:
+
+| Script | Source | What it does |
+|--------|--------|--------------|
+| `scripts/search_shopify_docs.mjs` | `shopify.dev/assistant/search` | Search Hydrogen API docs |
+| `scripts/search_weaverse_docs.mjs` | `docs.weaverse.io/mcp` | Search Weaverse docs (Mintlify) |
+| `scripts/get_weaverse_page.mjs` | `docs.weaverse.io/mcp` | Fetch a full doc page by path |
+
+Usage:
+```bash
+node scripts/search_shopify_docs.mjs "createHydrogenContext"
+node scripts/search_weaverse_docs.mjs "component schema"
+node scripts/get_weaverse_page.mjs "development-guide/component-schema"
+```
+
+All scripts use Node.js built-ins only (no dependencies needed). Require Node.js 18+.
+
+## Content Sources
 
 | Skill | Authoritative Source |
 |-------|---------------------|
-| `weaverse-hydrogen/` | This repo — authored directly in `skills/weaverse-hydrogen/` |
-| `hydrogen-cookbooks/references/` | Local: `/Users/hta218/Documents/work/workspace/pilot/.guides/cookbooks/` |
-| `hydrogen-upgrades/references/` | Local: `/Users/hta218/Documents/work/workspace/pilot/.guides/hydrogen-upgrades/` |
+| `shopify-hydrogen/` | Live: `shopify.dev` via search script · Offline: `references/` |
+| `weaverse-hydrogen/` | This repo — authored directly · Live: `docs.weaverse.io` via scripts |
+| `hydrogen-cookbooks/` | Authored in this repo with Weaverse-specific patterns |
+| `hydrogen-upgrades/` | Authored in this repo · Cross-check with `shopify.dev` via scripts |
 
-The only files in this repo that are authored here (not sourced) are the `SKILL.md` index files and `AGENTS.md` itself.
-
-## How to Add a New Cookbook or Upgrade Guide
-
-1. Add the source file to the appropriate folder in `pilot/.guides/`
-2. Copy it into the corresponding `references/` folder here
-3. Update the `SKILL.md` index table for that skill
-
-## Content Maintenance
-
-### weaverse-hydrogen/
-
-Content is now authored directly in this repo. Edit files in `skills/weaverse-hydrogen/` as needed.
+**Rule:** Never write API docs from memory or training data. Use the scripts to fetch authoritative content.
 
 ## Skill File Format
 
-Each `SKILL.md` follows this structure:
+Each `SKILL.md` has YAML frontmatter:
 
 ```yaml
 ---
@@ -60,12 +83,11 @@ description: "One-line description of what this skill covers and when to use it.
 ```
 
 Followed by:
-- A brief intro explaining the skill's scope
-- A table of available references with short descriptions
+- Live Documentation section (script usage)
+- Brief intro explaining the skill's scope
+- Table of available references with short descriptions
 - Usage notes for when/how to load the skill
-
-Reference files are freeform markdown — format follows whatever the source uses.
 
 ## .cursorrules
 
-Always kept in sync with the root `SKILL.md`. If the root `SKILL.md` is updated, update `.cursorrules` to match.
+Kept in sync with the skill content. Update when skills change.

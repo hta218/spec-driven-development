@@ -7,6 +7,22 @@ description: "Step-by-step implementation guides for building features in a Shop
 
 Concrete, step-by-step guides for building specific features in a Shopify Hydrogen storefront. Each cookbook is a self-contained recipe with code, file changes, and implementation notes.
 
+## Live Documentation
+
+For the latest Hydrogen cookbook recipes from Shopify:
+
+```bash
+node scripts/search_shopify_docs.mjs "hydrogen cookbook <topic>"
+```
+
+For Weaverse-specific patterns:
+
+```bash
+node scripts/search_weaverse_docs.mjs "<topic>"
+```
+
+The references below are curated guides that may include Weaverse-specific patterns not available in the live docs.
+
 ## Available Cookbooks
 
 | Cookbook | Description |

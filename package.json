@@ -1,0 +1,11 @@
+{
+  "name": "shopify-hydrogen-skills",
+  "private": true,
+  "type": "module",
+  "description": "Agent skills for Shopify Hydrogen + Weaverse development",
+  "scripts": {
+    "search:shopify": "node scripts/search_shopify_docs.mjs",
+    "search:weaverse": "node scripts/search_weaverse_docs.mjs",
+    "page:weaverse": "node scripts/get_weaverse_page.mjs"
+  }
+}

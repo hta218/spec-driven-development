@@ -3,6 +3,26 @@
 > Build Shopify Hydrogen storefronts with Weaverse visual page builder.
 > Docs: https://docs.weaverse.io | GitHub: https://github.com/Weaverse
 
+## Live Documentation
+
+For the most up-to-date Weaverse documentation, use these scripts:
+
+- `node scripts/search_weaverse_docs.mjs "<query>"` — search Weaverse docs
+- `node scripts/get_weaverse_page.mjs "<page-path>"` — fetch a specific page (use paths from search results)
+- Weaverse docs: https://docs.weaverse.io
+
+**Examples:**
+```bash
+node scripts/search_weaverse_docs.mjs "component schema"
+node scripts/search_weaverse_docs.mjs "data fetching"
+node scripts/get_weaverse_page.mjs "development-guide/component-schema"
+node scripts/get_weaverse_page.mjs "api-reference/weaverse-client"
+```
+
+The reference files below provide offline context but may not reflect the latest changes.
+
+---
+
 ## What is Weaverse?
 
 Weaverse is a visual page builder for Shopify Hydrogen. It lets merchants customize storefronts via a drag-and-drop Studio while developers build type-safe React components with schemas that define the editor UI.

@@ -1,16 +1,45 @@
 # Shopify Hydrogen Skills
 
-A collection of agent skills for building, maintaining, and upgrading Shopify Hydrogen storefronts with Weaverse. Works with Claude Code, Cursor, GitHub Copilot, and any agent that supports markdown skill files.
+Agent skills for building, maintaining, and upgrading Shopify Hydrogen storefronts with Weaverse. Works with Claude Code, Cursor, GitHub Copilot, Windsurf, OpenCode, OpenClaw, Gemini CLI, and any agent that supports markdown skill files.
 
-## Installation
+## Quick Install
 
-Copy and paste this prompt into any AI agent (Claude Code, Cursor, GitHub Copilot, Windsurf, OpenCode, etc.):
-
-```
-Read INSTALL.md from https://github.com/Weaverse/shopify-hydrogen-skills and follow the instructions to set up the Shopify Hydrogen skills.
+```bash
+npx skills add Weaverse/shopify-hydrogen-skills
 ```
 
-The agent will ask where to install (globally or for the current project) and which agent(s) to configure, then handle everything automatically.
+This auto-detects which coding agents you have installed (Claude Code, Cursor, OpenCode, OpenClaw, Codex, Windsurf, Gemini CLI, GitHub Copilot, and 40+ more) and installs the skills to all of them. Powered by [skills.sh](https://skills.sh).
+
+> The repo will also appear on the [skills.sh leaderboard](https://skills.sh) automatically — no manual submission needed.
+
+### Manual Install
+
+If you prefer per-agent setup, read [INSTALL.md](INSTALL.md) for step-by-step instructions for each supported agent.
+
+## Live Docs Strategy
+
+Instead of baking static API docs into skill files, this repo ships **live doc fetching scripts** that query official sources at runtime:
+
+| Script | Source | What it does |
+|--------|--------|--------------|
+| `scripts/search_shopify_docs.mjs` | `shopify.dev` | Search Hydrogen API docs (same backend Shopify's AI Toolkit uses) |
+| `scripts/search_weaverse_docs.mjs` | `docs.weaverse.io` | Search Weaverse documentation |
+| `scripts/get_weaverse_page.mjs` | `docs.weaverse.io` | Fetch a full doc page by path |
+
+```bash
+# Search Shopify Hydrogen docs
+node scripts/search_shopify_docs.mjs "createHydrogenContext"
+node scripts/search_shopify_docs.mjs "CartForm actions"
+
+# Search Weaverse docs
+node scripts/search_weaverse_docs.mjs "component schema"
+node scripts/search_weaverse_docs.mjs "data fetching"
+
+# Fetch a specific Weaverse page
+node scripts/get_weaverse_page.mjs "development-guide/component-schema"
+```
+
+The `references/` folders remain as offline fallback — they're cached snapshots that may not reflect the latest API changes.
 
 ## Skills Overview
 
@@ -25,7 +54,7 @@ The agent will ask where to install (globally or for the current project) and wh
 
 ## shopify-hydrogen
 
-Core APIs from `@shopify/hydrogen` — everything needed to set up and work with a Hydrogen project: server context, cart handler, caching strategies, pagination, SEO meta, sitemaps, analytics, and CSP.
+Core APIs from `@shopify/hydrogen` — live docs via `scripts/search_shopify_docs.mjs` plus offline references for setup, caching, and cart patterns.
 
 ```
 skills/shopify-hydrogen/
@@ -40,7 +69,7 @@ skills/shopify-hydrogen/
 
 ## hydrogen-cookbooks
 
-Self-contained feature recipes. Each cookbook covers prerequisites, step-by-step implementation, and troubleshooting. File names reference the Hydrogen skeleton — adapt paths to your project.
+Self-contained feature recipes with live doc search fallback. Each cookbook covers prerequisites, step-by-step implementation, and troubleshooting.
 
 ```
 skills/hydrogen-cookbooks/
@@ -60,7 +89,7 @@ skills/hydrogen-cookbooks/
 
 ## hydrogen-upgrades
 
-Version-by-version migration guides covering breaking changes, required code diffs, and step-by-step instructions. For multi-version jumps, apply each guide in order.
+Version-by-version migration guides with live doc search for the latest breaking changes.
 
 ```
 skills/hydrogen-upgrades/
@@ -79,7 +108,7 @@ skills/hydrogen-upgrades/
 
 ## weaverse-hydrogen
 
-Everything needed to build a Shopify Hydrogen storefront with Weaverse — component anatomy, schema authoring, data fetching, styling, the Weaverse API, React Router v7 conventions, deployment, and advanced features.
+Everything needed to build a Shopify Hydrogen storefront with Weaverse — with live docs via `scripts/search_weaverse_docs.mjs` and `scripts/get_weaverse_page.mjs`.
 
 ```
 skills/weaverse-hydrogen/
@@ -104,8 +133,6 @@ skills/weaverse-hydrogen/
     ├── product-card.tsx
     └── components-registry.ts
 ```
-
-
 
 ---
 

@@ -5,6 +5,22 @@ Do **not** skip ahead — wait for the user's response before proceeding.
 
 ---
 
+## Quick Install (Recommended)
+
+The fastest way to install:
+
+```bash
+npx skills add Weaverse/shopify-hydrogen-skills
+```
+
+This auto-detects which coding agents you have installed (Claude Code, Cursor, OpenCode, OpenClaw, Codex, Windsurf, Gemini CLI, GitHub Copilot, and 40+ more) and installs the skills to all of them. Powered by [skills.sh](https://skills.sh).
+
+If `npx skills add` works, you're done — skip to [Step 4](#step-4--confirm-installation).
+
+If you prefer manual per-agent setup or `npx skills` isn't available, continue below.
+
+---
+
 ## Step 1 — Choose Installation Scope
 
 Ask the user:
@@ -29,7 +45,9 @@ Ask the user which AI agent(s) they want to install the skills for (they can pic
 > 3. GitHub Copilot
 > 4. Windsurf
 > 5. OpenCode
-> 6. Other (I'll describe it)"
+> 6. OpenClaw
+> 7. Gemini CLI
+> 8. Other (I'll describe it)"
 
 Store the selections as `AGENTS`.
 
@@ -43,16 +61,25 @@ For each agent in `AGENTS`, follow the relevant section below.
 
 The **skills source** is: `https://github.com/Weaverse/shopify-hydrogen-skills`
 
-Clone it temporarily, then copy the 4 skill folders directly into the agent's skills directory:
+Clone it temporarily, then copy the skill folders **and** the scripts directory:
 
 ```
 shopify-hydrogen/
 hydrogen-cookbooks/
 hydrogen-upgrades/
 weaverse-hydrogen/
+scripts/          ← live doc fetching scripts
 ```
 
-These 4 folders should land flat inside the destination — **not** wrapped in a subfolder.
+These should land flat inside the destination — **not** wrapped in a subfolder.
+
+### General Install Command
+
+```bash
+git clone https://github.com/Weaverse/shopify-hydrogen-skills /tmp/h-skills --depth=1
+```
+
+Then copy based on scope (see each agent below for specific paths).
 
 ---
 
@@ -66,19 +93,19 @@ These 4 folders should land flat inside the destination — **not** wrapped in a
 
 **Copy the skills:**
 ```bash
-git clone https://github.com/Weaverse/shopify-hydrogen-skills /tmp/h-skills --depth=1
-
 # Global
 cp -r /tmp/h-skills/skills/shopify-hydrogen    ~/.claude/skills/
 cp -r /tmp/h-skills/skills/hydrogen-cookbooks  ~/.claude/skills/
 cp -r /tmp/h-skills/skills/hydrogen-upgrades   ~/.claude/skills/
 cp -r /tmp/h-skills/skills/weaverse-hydrogen   ~/.claude/skills/
+cp -r /tmp/h-skills/scripts                    ~/.claude/skills/
 
 # Local
 cp -r /tmp/h-skills/skills/shopify-hydrogen    ./skills/
 cp -r /tmp/h-skills/skills/hydrogen-cookbooks  ./skills/
 cp -r /tmp/h-skills/skills/hydrogen-upgrades   ./skills/
 cp -r /tmp/h-skills/skills/weaverse-hydrogen   ./skills/
+cp -r /tmp/h-skills/scripts                    ./skills/
 ```
 
 **Config file to update:**
@@ -98,6 +125,11 @@ Before working on any Shopify Hydrogen or Weaverse-related task, read:
 - {SKILLS_DESTINATION}/hydrogen-cookbooks/SKILL.md
 - {SKILLS_DESTINATION}/hydrogen-upgrades/SKILL.md
 - {SKILLS_DESTINATION}/weaverse-hydrogen/SKILL.md
+
+For live docs, use the scripts in {SKILLS_DESTINATION}/scripts/:
+- `node {SKILLS_DESTINATION}/scripts/search_shopify_docs.mjs "<query>"`
+- `node {SKILLS_DESTINATION}/scripts/search_weaverse_docs.mjs "<query>"`
+- `node {SKILLS_DESTINATION}/scripts/get_weaverse_page.mjs "<page-path>"`
 ```
 
 Replace `{SKILLS_DESTINATION}` with the actual destination path from the table above.
@@ -112,16 +144,7 @@ Replace `{SKILLS_DESTINATION}` with the actual destination path from the table a
 | `global` | `~/.cursor/skills/`         |
 | `local`  | `./skills/`                 |
 
-**Copy the skills:**
-```bash
-# Global
-cp -r /tmp/h-skills/skills/shopify-hydrogen    ~/.cursor/skills/
-cp -r /tmp/h-skills/skills/hydrogen-cookbooks  ~/.cursor/skills/
-cp -r /tmp/h-skills/skills/hydrogen-upgrades   ~/.cursor/skills/
-cp -r /tmp/h-skills/skills/weaverse-hydrogen   ~/.cursor/skills/
-
-# Local — same as Claude Code local above
-```
+**Copy the skills** (same pattern as Claude Code, adjust destination path).
 
 **Config file to update:**
 | Scope    | File                                          |
@@ -143,9 +166,14 @@ Before working on any Shopify Hydrogen or Weaverse-related task, read:
 - {SKILLS_DESTINATION}/hydrogen-cookbooks/SKILL.md
 - {SKILLS_DESTINATION}/hydrogen-upgrades/SKILL.md
 - {SKILLS_DESTINATION}/weaverse-hydrogen/SKILL.md
+
+For live docs, use the scripts in {SKILLS_DESTINATION}/scripts/:
+- `node {SKILLS_DESTINATION}/scripts/search_shopify_docs.mjs "<query>"`
+- `node {SKILLS_DESTINATION}/scripts/search_weaverse_docs.mjs "<query>"`
+- `node {SKILLS_DESTINATION}/scripts/get_weaverse_page.mjs "<page-path>"`
 ```
 
-Replace `{SKILLS_DESTINATION}` with the actual destination path from the table above.
+Replace `{SKILLS_DESTINATION}` with the actual destination path.
 
 ---
 
@@ -170,6 +198,11 @@ Before working on any Shopify Hydrogen or Weaverse-related task, refer to:
 - ./skills/hydrogen-cookbooks/SKILL.md
 - ./skills/hydrogen-upgrades/SKILL.md
 - ./skills/weaverse-hydrogen/SKILL.md
+
+For live docs, use the scripts in ./skills/scripts/:
+- `node ./skills/scripts/search_shopify_docs.mjs "<query>"`
+- `node ./skills/scripts/search_weaverse_docs.mjs "<query>"`
+- `node ./skills/scripts/get_weaverse_page.mjs "<page-path>"`
 ```
 
 ---
@@ -182,16 +215,7 @@ Before working on any Shopify Hydrogen or Weaverse-related task, refer to:
 | `global` | `~/.windsurf/skills/`       |
 | `local`  | `./skills/`                 |
 
-**Copy the skills:**
-```bash
-# Global
-cp -r /tmp/h-skills/skills/shopify-hydrogen    ~/.windsurf/skills/
-cp -r /tmp/h-skills/skills/hydrogen-cookbooks  ~/.windsurf/skills/
-cp -r /tmp/h-skills/skills/hydrogen-upgrades   ~/.windsurf/skills/
-cp -r /tmp/h-skills/skills/weaverse-hydrogen   ~/.windsurf/skills/
-
-# Local — same as Claude Code local above
-```
+**Copy the skills** (same pattern as Claude Code, adjust destination).
 
 **Config file to update:**
 | Scope    | File                                     |
@@ -210,9 +234,12 @@ Before working on any Shopify Hydrogen or Weaverse-related task, read:
 - {SKILLS_DESTINATION}/hydrogen-cookbooks/SKILL.md
 - {SKILLS_DESTINATION}/hydrogen-upgrades/SKILL.md
 - {SKILLS_DESTINATION}/weaverse-hydrogen/SKILL.md
-```
 
-Replace `{SKILLS_DESTINATION}` with the actual destination path from the table above.
+For live docs, use the scripts in {SKILLS_DESTINATION}/scripts/:
+- `node {SKILLS_DESTINATION}/scripts/search_shopify_docs.mjs "<query>"`
+- `node {SKILLS_DESTINATION}/scripts/search_weaverse_docs.mjs "<query>"`
+- `node {SKILLS_DESTINATION}/scripts/get_weaverse_page.mjs "<page-path>"`
+```
 
 ---
 
@@ -224,16 +251,7 @@ Replace `{SKILLS_DESTINATION}` with the actual destination path from the table a
 | `global` | `~/.opencode/skills/`       |
 | `local`  | `./skills/`                 |
 
-**Copy the skills:**
-```bash
-# Global
-cp -r /tmp/h-skills/skills/shopify-hydrogen    ~/.opencode/skills/
-cp -r /tmp/h-skills/skills/hydrogen-cookbooks  ~/.opencode/skills/
-cp -r /tmp/h-skills/skills/hydrogen-upgrades   ~/.opencode/skills/
-cp -r /tmp/h-skills/skills/weaverse-hydrogen   ~/.opencode/skills/
-
-# Local — same as Claude Code local above
-```
+**Copy the skills** (same pattern as Claude Code, adjust destination).
 
 **Config file to update:**
 | Scope    | File                    |
@@ -252,9 +270,56 @@ Before working on any Shopify Hydrogen or Weaverse-related task, read:
 - {SKILLS_DESTINATION}/hydrogen-cookbooks/SKILL.md
 - {SKILLS_DESTINATION}/hydrogen-upgrades/SKILL.md
 - {SKILLS_DESTINATION}/weaverse-hydrogen/SKILL.md
+
+For live docs, use the scripts in {SKILLS_DESTINATION}/scripts/:
+- `node {SKILLS_DESTINATION}/scripts/search_shopify_docs.mjs "<query>"`
+- `node {SKILLS_DESTINATION}/scripts/search_weaverse_docs.mjs "<query>"`
+- `node {SKILLS_DESTINATION}/scripts/get_weaverse_page.mjs "<page-path>"`
 ```
 
-Replace `{SKILLS_DESTINATION}` with the actual destination path from the table above.
+---
+
+### OpenClaw
+
+**Skills destination:**
+| Scope    | Path                          |
+| -------- | ----------------------------- |
+| `global` | `~/.openclaw/workspace/skills/` |
+| `local`  | `./skills/`                   |
+
+**Copy the skills:**
+```bash
+# Global
+cp -r /tmp/h-skills/skills/shopify-hydrogen    ~/.openclaw/workspace/skills/
+cp -r /tmp/h-skills/skills/hydrogen-cookbooks  ~/.openclaw/workspace/skills/
+cp -r /tmp/h-skills/skills/hydrogen-upgrades   ~/.openclaw/workspace/skills/
+cp -r /tmp/h-skills/skills/weaverse-hydrogen   ~/.openclaw/workspace/skills/
+cp -r /tmp/h-skills/scripts                    ~/.openclaw/workspace/skills/
+
+# Local — same as Claude Code local above
+```
+
+OpenClaw auto-discovers skills from the workspace skills directory. No config file update needed.
+
+---
+
+### Gemini CLI
+
+**Skills destination:**
+| Scope    | Path                        |
+| -------- | --------------------------- |
+| `global` | `~/.gemini/skills/`         |
+| `local`  | `./skills/`                 |
+
+**Copy the skills** (same pattern as Claude Code, adjust destination).
+
+**Config file to update:**
+| Scope    | File                              |
+| -------- | --------------------------------- |
+| `global` | `~/.gemini/settings.json`         |
+| `local`  | `./.gemini/settings.json`         |
+
+Add or update the skills reference in the Gemini CLI configuration following their docs.
 
 ---
 
@@ -265,8 +330,9 @@ After completing all changes, report back to the user with a summary:
 ```
 ✅ Shopify Hydrogen Skills installed!
 
-Scope:   global / local
-Agents:  Claude Code, Cursor, ...
+Method:   npx skills add / manual
+Scope:    global / local
+Agents:   Claude Code, Cursor, ...
 
 Skills copied to:
   - ~/.claude/skills/          (Claude Code, global)
@@ -277,12 +343,16 @@ Skills copied to:
   ├── shopify-hydrogen/
   ├── hydrogen-cookbooks/
   ├── hydrogen-upgrades/
-  └── weaverse-hydrogen/
+  ├── weaverse-hydrogen/
+  └── scripts/
+      ├── search_shopify_docs.mjs
+      ├── search_weaverse_docs.mjs
+      └── get_weaverse_page.mjs
 
 Config files updated:
   - ~/.claude/CLAUDE.md
   - ~/.cursor/rules/shopify-hydrogen.mdc
   - ... (list all files touched)
 
-You're ready to build Hydrogen storefronts with full skill context.
+You're ready to build Hydrogen storefronts with live doc support.
 ```
