@@ -81,6 +81,8 @@ git clone https://github.com/Weaverse/shopify-hydrogen-skills /tmp/h-skills --de
 
 Then copy based on scope (see each agent below for specific paths).
 
+> **Note:** The `theme-update` skill includes its own `scripts/check_pilot_updates.mjs` inside `skills/theme-update/scripts/`. This gets copied along with the skill automatically.
+
 ---
 
 ### Claude Code
@@ -98,6 +100,7 @@ cp -r /tmp/h-skills/skills/shopify-hydrogen    ~/.claude/skills/
 cp -r /tmp/h-skills/skills/hydrogen-cookbooks  ~/.claude/skills/
 cp -r /tmp/h-skills/skills/hydrogen-upgrades   ~/.claude/skills/
 cp -r /tmp/h-skills/skills/weaverse-hydrogen   ~/.claude/skills/
+cp -r /tmp/h-skills/skills/theme-update        ~/.claude/skills/
 cp -r /tmp/h-skills/scripts                    ~/.claude/skills/
 
 # Local
@@ -105,6 +108,7 @@ cp -r /tmp/h-skills/skills/shopify-hydrogen    ./skills/
 cp -r /tmp/h-skills/skills/hydrogen-cookbooks  ./skills/
 cp -r /tmp/h-skills/skills/hydrogen-upgrades   ./skills/
 cp -r /tmp/h-skills/skills/weaverse-hydrogen   ./skills/
+cp -r /tmp/h-skills/skills/theme-update        ./skills/
 cp -r /tmp/h-skills/scripts                    ./skills/
 ```
 
@@ -125,6 +129,7 @@ Before working on any Shopify Hydrogen or Weaverse-related task, read:
 - {SKILLS_DESTINATION}/hydrogen-cookbooks/SKILL.md
 - {SKILLS_DESTINATION}/hydrogen-upgrades/SKILL.md
 - {SKILLS_DESTINATION}/weaverse-hydrogen/SKILL.md
+- {SKILLS_DESTINATION}/theme-update/SKILL.md
 
 For live docs, use the scripts in {SKILLS_DESTINATION}/scripts/:
 - `node {SKILLS_DESTINATION}/scripts/search_shopify_docs.mjs "<query>"`
@@ -166,6 +171,7 @@ Before working on any Shopify Hydrogen or Weaverse-related task, read:
 - {SKILLS_DESTINATION}/hydrogen-cookbooks/SKILL.md
 - {SKILLS_DESTINATION}/hydrogen-upgrades/SKILL.md
 - {SKILLS_DESTINATION}/weaverse-hydrogen/SKILL.md
+- {SKILLS_DESTINATION}/theme-update/SKILL.md
 
 For live docs, use the scripts in {SKILLS_DESTINATION}/scripts/:
 - `node {SKILLS_DESTINATION}/scripts/search_shopify_docs.mjs "<query>"`
@@ -198,6 +204,7 @@ Before working on any Shopify Hydrogen or Weaverse-related task, refer to:
 - ./skills/hydrogen-cookbooks/SKILL.md
 - ./skills/hydrogen-upgrades/SKILL.md
 - ./skills/weaverse-hydrogen/SKILL.md
+- ./skills/theme-update/SKILL.md
 
 For live docs, use the scripts in ./skills/scripts/:
 - `node ./skills/scripts/search_shopify_docs.mjs "<query>"`
@@ -234,6 +241,7 @@ Before working on any Shopify Hydrogen or Weaverse-related task, read:
 - {SKILLS_DESTINATION}/hydrogen-cookbooks/SKILL.md
 - {SKILLS_DESTINATION}/hydrogen-upgrades/SKILL.md
 - {SKILLS_DESTINATION}/weaverse-hydrogen/SKILL.md
+- {SKILLS_DESTINATION}/theme-update/SKILL.md
 
 For live docs, use the scripts in {SKILLS_DESTINATION}/scripts/:
 - `node {SKILLS_DESTINATION}/scripts/search_shopify_docs.mjs "<query>"`
@@ -270,6 +278,7 @@ Before working on any Shopify Hydrogen or Weaverse-related task, read:
 - {SKILLS_DESTINATION}/hydrogen-cookbooks/SKILL.md
 - {SKILLS_DESTINATION}/hydrogen-upgrades/SKILL.md
 - {SKILLS_DESTINATION}/weaverse-hydrogen/SKILL.md
+- {SKILLS_DESTINATION}/theme-update/SKILL.md
 
 For live docs, use the scripts in {SKILLS_DESTINATION}/scripts/:
 - `node {SKILLS_DESTINATION}/scripts/search_shopify_docs.mjs "<query>"`
@@ -294,6 +303,7 @@ cp -r /tmp/h-skills/skills/shopify-hydrogen    ~/.openclaw/workspace/skills/
 cp -r /tmp/h-skills/skills/hydrogen-cookbooks  ~/.openclaw/workspace/skills/
 cp -r /tmp/h-skills/skills/hydrogen-upgrades   ~/.openclaw/workspace/skills/
 cp -r /tmp/h-skills/skills/weaverse-hydrogen   ~/.openclaw/workspace/skills/
+cp -r /tmp/h-skills/skills/theme-update        ~/.openclaw/workspace/skills/
 cp -r /tmp/h-skills/scripts                    ~/.openclaw/workspace/skills/
 
 # Local — same as Claude Code local above
@@ -344,6 +354,7 @@ Skills copied to:
   ├── hydrogen-cookbooks/
   ├── hydrogen-upgrades/
   ├── weaverse-hydrogen/
+  ├── theme-update/
   └── scripts/
       ├── search_shopify_docs.mjs
       ├── search_weaverse_docs.mjs
